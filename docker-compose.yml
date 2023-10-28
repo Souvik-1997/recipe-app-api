@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  app:
+    build:
+      # context: .: It specifies that the build context is the current directory (the location where the Dockerfile is located).
+      context: .
+      args:
+        - DEV=true
+    ports:
+      - "8000:8000"
+      # volumes:: This sets up a volume binding between the local ./app directory and the /app directory inside the container. This is often used for live code reloading during development.
+    volumes:
+      - ./app:/app
+      # the command is specified using the > character followed by a multi-line string that contains the command to run. Using > allows you to format the command nicely without worrying about YAML's indentation.
+    command: >
+      sh -c "python manage.py runserver 0.0.0.0:8000"
